@@ -1,0 +1,150 @@
+# Mensagem de Boas-Vindas
+print('Bem-vindo a Livraria da Luana Mira!')
+
+
+# Lista vazia e variável id_global
+lista_livro = []
+id_global = 0
+
+
+
+
+# Função para cadastrar livro
+def cadastrar_livro(identificador):  # Menu Cadastrar Livro
+   print('-' * 48)
+   print('-' * 12, ' MENU CADASTRAR LIVRO ', '-' * 12)
+
+
+   print(f'ID do Livro: {identificador}')
+   nome = input('Digite o nome do livro: ')
+   autor = input('Digite o autor do livro: ')
+   editora = input('Digite a editora do livro: ')
+
+
+   livro = {'ID': identificador, 'Nome': nome, 'Autor': autor, 'Editora': editora}
+   lista_livro.append(livro)
+
+
+   print('Livro cadastrado com sucesso.')
+
+
+
+
+# Função para consultar livros
+def consultar_livro():  # Menu Consultar Livro
+   while True:
+       print('-' * 48)
+       print('-' * 12, ' MENU CONSULTAR LIVRO ', '-' * 12)
+
+
+       opcao = int(input('Escolha uma opção: \n'
+                         '1. Consultar todos os Livros\n'
+                         '2. Consultar por ID\n'
+                         '3. Consultar por Autor\n'
+                         '4. Retornar ao menu\n'
+                         '>> '))
+       if opcao == 1:  # Livros Cadastrados
+           if lista_livro:
+               for livro in lista_livro:
+                   print('-' * 24)
+                   print(f'ID: {livro["ID"]} \n'
+                         f'Nome: {livro["Nome"]} \n'
+                         f'Autor: {livro["Autor"]} \n'
+                         f'Editora: {livro["Editora"]} \n')
+                   print('-' * 24)
+           else:
+               print('Nenhum livro cadastrado.')
+
+
+       elif opcao == 2:  # Consultar pelo ID do livro
+           id_consulta = int(input('Digite o ID do livro: '))
+           encontrado = False
+           for livro in lista_livro:
+               if livro["ID"] == id_consulta:
+                   print('-' * 24)
+                   print(f'ID: {livro["ID"]} \n'
+                         f'Nome: {livro["Nome"]} \n'
+                         f'Autor: {livro["Autor"]} \n'
+                         f'Editora: {livro["Editora"]}')
+                   print('-' * 24)
+                   encontrado = True
+                   break
+           if not encontrado:
+               print('Livro não encontrado.')
+
+
+       elif opcao == 3:  # Consultar pelo Autor do livro
+           autor_consulta = input('Digite o Autor do livro: ')
+           for livro in lista_livro:
+               if livro['Autor'].lower() == autor_consulta.lower():
+                   print('-' * 24)
+                   print(f'ID: {livro["ID"]} \n'
+                         f'Nome: {livro["Nome"]} \n'
+                         f'Autor: {livro["Autor"]} \n'
+                         f'Editora: {livro["Editora"]}')
+                   print('-' * 24)
+               if not autor_consulta:
+                   print(f'Nenhum livro encontrado para o autor "{autor_consulta}".')
+       elif opcao == 4:
+           return
+       else:
+           print('Opção inválida.Tente novamente.')
+
+
+
+
+# Função para remover livro
+def remover_livro():  # Menu para remover livro
+   while True:
+       print('-' * 48)
+       print('-' * 13, ' MENU REMOVER LIVRO ', '-' * 13)
+       id_remover = int(input("Digite o Id do livro a ser removido: "))
+       for livro in lista_livro:
+           if livro['ID'] == id_remover:
+               lista_livro.remove(livro)
+               print("Livro removido com sucesso.")
+               return
+       else:
+           print("ID inválido.")
+
+
+
+
+# Estrutura do menu
+def main():  # Menu Principal
+   global id_global
+   while True:
+       print('-' * 48)
+       print('-' * 15, ' MENU PRINCIPAL ', '-' * 15)
+       opcao = input('Escolha uma opção: \n'
+                     '1. Cadastrar Livro\n'
+                     '2. Consultar Livro(s)\n'
+                     '3. Remover Livro\n'
+                     '4. Sair\n'
+                     '>> ')
+       try:
+           opcao = int(opcao)
+           if opcao == 1:
+               id_global += 1
+               cadastrar_livro(id_global)
+           elif opcao == 2:
+               consultar_livro()
+           elif opcao == 3:
+               remover_livro()
+           elif opcao == 4:
+               print('Encerrando o programa.')
+               break
+           else:
+               print('Opção inválida.')
+       except ValueError:
+           print('Por favor, digite uma opção válida.')
+
+
+
+
+# Chamada da função main para iniciar o programa
+if __name__ == '__main__':
+   main()
+
+
+
